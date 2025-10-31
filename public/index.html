@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<button onclick="convertToPDF()">Convert to PDF</button>
+
+
+<p id="status"></p>
+
+
+<script>
+async function convertToPDF() {
+const url = document.getElementById('urlInput').value;
+const apiKey = document.getElementById('apiKeyInput').value;
+const status = document.getElementById('status');
+
+
+if (!url || !apiKey) {
+status.innerText = 'Please enter both URL and API key.';
+return;
+}
+
+
+status.innerText = 'Converting... please wait';
+
+
+try {
+const response = await fetch('/convert', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+'x-api-key': apiKey
+},
+body: JSON.stringify({ url })
+});
+
+
+if (!response.ok) {
+const err = await response.json();
+status.innerText = 'Error: ' + (err.error || response.statusText);
+return;
+}
+
+
+const blob = await response.blob();
+const link = document.createElement('a');
+link.href = window.URL.createObjectURL(blob);
+link.download = 'converted.pdf';
+link.click();
+status.innerText = '✅ PDF downloaded successfully!';
+} catch (error) {
+console.error(error);
+status.innerText = '❌ Conversion failed.';
+}
+}
+</script>
+</body>
+</html>
