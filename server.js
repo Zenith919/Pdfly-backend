@@ -19,7 +19,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://pdfly-frontendv-git-main-zenith919-projects.vercel.app",
-      "https://pdfly-frontendv-ceisahufd-zenith91-projects.vercel.app",
+      "https://pdfly-frontendv-ceisahufd-zenith919-projects.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
