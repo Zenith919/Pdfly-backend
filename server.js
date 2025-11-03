@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://pdfly-frontendv-git-main-zenith91-projects.vercel.app",
+      "https://pdfly-frontendv-git-main-zenith919-projects.vercel.app",
       "https://pdfly-frontendv-ceisahufd-zenith91-projects.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
