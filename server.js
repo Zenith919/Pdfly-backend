@@ -1,12 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import mongoose from "mongoose";
 import connectDB from "./config/db.js";
 import pdfRoutes from "./routes/pdfRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
-dotenv.config();
+dotenv.config(); // only once — remove duplicate line
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -15,19 +14,32 @@ const PORT = process.env.PORT || 5050;
 connectDB();
 
 // ✅ Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000", // local React
+      "https://pdfly-frontend.vercel.app" // your deployed frontend
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // ✅ Routes
 app.use("/api/pdf", pdfRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes); // use plural for consistency
 
 // ✅ Test route
 app.get("/api/test", (req, res) => {
-  res.send("✅ Backend is working!");
+  res.send("✅ Backend is working fine!");
 });
 
-// ✅ Start server (only one app.listen)
+// ✅ Catch-all for undefined routes
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+// ✅ Start server
 app.listen(PORT, () => {
-  console.log(`🚀 PDFly API running on http://localhost:${PORT}`);
+  console.log(`🚀 PDFly API running on port ${PORT}`);
 });

@@ -1,0 +1,21 @@
+# render.yaml
+services:
+  - type: web
+    name: pdfly-backend
+    env: node
+    region: oregon  # or frankfurt for EU
+    plan: free
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        value: https://pdfly-frontend.vercel.app  # 👈 update after frontend deploy
