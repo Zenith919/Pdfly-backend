@@ -17,13 +17,15 @@ connectDB();
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", // local React
-      "https://pdfly-frontend.vercel.app" // your deployed frontend
+      "http://localhost:3000",
+      "https://pdfly-frontendv-git-main-zenith91-projects.vercel.app",
+      "https://pdfly-frontendv-ceisahufd-zenith91-projects.vercel.app",
     ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-app.use(express.json());
+
 
 // ✅ Routes
 app.use("/api/pdf", pdfRoutes);
